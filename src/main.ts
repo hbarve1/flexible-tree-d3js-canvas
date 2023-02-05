@@ -1,10 +1,11 @@
 import "./style.css";
-// import * as d3 from "d3";
+
+declare const d3: any;
 
 const PI2 = 2 * Math.PI;
 const radius = (r: number) => 1 + Math.sqrt(16 * r);
-const isNaN = (v: number) => Number.isNaN(Number(v));
-let lastEvent;
+// const isNaN = (v: number) => Number.isNaN(Number(v));
+let lastEvent: any;
 
 class Canvas {
   canvas: HTMLCanvasElement;
@@ -26,6 +27,7 @@ class Canvas {
       .on("zoom", () => {
         lastEvent = d3.event;
       }));
+
     this.d3canvas = d3.select(this.canvas).call(zoom);
   }
 
@@ -150,12 +152,12 @@ class Link {
 class Force {
   force;
 
-  constructor(width: number, height: number, nodes, links) {
+  constructor(width: number, height: number, nodes: any, links: any) {
     // let collide5, cluster;
 
     this.force = d3.layout
       .force()
-      .charge(function (d) {
+      .charge(function (d: any) {
         var l = radius(d.radius) + radius((d.parent && d.parent.radius) || 0);
         return -l * 20; //100;
       })
@@ -179,7 +181,7 @@ class Force {
     this.force.nodes(value);
   }
 
-  tick(value) {
+  tick(value: any) {
     if (!arguments.length) return this.force.on("tick");
     this.force.on("tick", value);
     return this;
@@ -198,7 +200,7 @@ class Force {
 
 let w = window.innerWidth,
   h = window.innerHeight,
-  p = 10,
+  // p = 10,
   max = 60,
   nodes = [
     new Catalog({
@@ -207,9 +209,9 @@ let w = window.innerWidth,
       radius: 0,
       color: "hsla(10,80%,75%,.8)",
       bgcolor: "rgba(255, 255, 255, 1)",
-    }),
+    } as any),
   ],
-  links = [];
+  links: any[] = [];
 
 let force = new Force(w, h, nodes, links).tick(updatePositions).start();
 
@@ -335,7 +337,7 @@ d3.timer(function calc() {
       radius: ~~(Math.random() * 20),
       color: "hsla(150, 80%, 100%, 1)",
       bgcolor: "rgba(255, 255, 255, 1)",
-    });
+    } as any);
 
   inflate(bud);
   links.push(
@@ -352,10 +354,10 @@ d3.timer(function calc() {
   return nodes.length >= max;
 });
 
-function inflate(d) {
+function inflate(d: any) {
   while ((d = d.parent)) d.weight += 50;
 }
 
-function updatePositions(e) {
+function updatePositions() {
   force.force.alpha(0.1); //.resume()
 }
