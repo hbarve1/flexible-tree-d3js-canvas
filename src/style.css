@@ -1,0 +1,26 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body,
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #697ba7;
+  background: radial-gradient(ellipse at center, #001b36 0%, #000 100%);
+}
+h1 {
+  font-weight: 300;
+  font-size: 3em;
+}
+line {
+  fill: none;
+  stroke: #4682b4;
+  stroke-width: 1.5;
+}
+circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 0.5;
+}
